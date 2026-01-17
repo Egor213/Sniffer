@@ -1,0 +1,3 @@
+/home/egor/infoTeck/build/CMakeFiles/main.dir
+/home/egor/infoTeck/build/CMakeFiles/edit_cache.dir
+/home/egor/infoTeck/build/CMakeFiles/rebuild_cache.dir

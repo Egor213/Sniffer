@@ -1,0 +1,7 @@
+{
+	"InstallScripts" : 
+	[
+		"/home/egor/infoTeck/build/cmake_install.cmake"
+	],
+	"Parallel" : false
+}
