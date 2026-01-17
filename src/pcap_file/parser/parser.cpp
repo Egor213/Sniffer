@@ -54,6 +54,8 @@ std::optional<PacketInfo> PcapFileParser::parse_file(u_char* packet_data, pcap_p
         size_t payload_length = packet_header->len - payload_offset;
         const u_char *payload = packet_data + payload_offset;
 
+        info.seq_num = ntohl(tcp_header->seq);
+        info.ack_num = ntohl(tcp_header->ack_seq);
         info.payload_len = payload_length;
         info.payload = payload;
         info.tcp_flags = tcp_header->th_flags;

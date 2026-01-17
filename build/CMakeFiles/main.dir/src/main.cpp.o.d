@@ -269,6 +269,7 @@ CMakeFiles/main.dir/src/main.cpp.o: /home/egor/infoTeck/src/main.cpp \
  /usr/include/c++/13/bits/quoted_string.h /usr/include/c++/13/sstream \
  /usr/include/c++/13/bits/sstream.tcc \
  /home/egor/infoTeck/src/pcap_file/parser/parser.hpp \
+ /home/egor/infoTeck/src/tcp_session_tracker/tcp_session_tracket.hpp \
  /home/egor/infoTeck/src/handlers/ftp_control_handler/ftp_control_handler.hpp \
  /usr/include/c++/13/fstream \
  /usr/include/x86_64-linux-gnu/c++/13/bits/basic_file.h \

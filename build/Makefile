@@ -345,6 +345,30 @@ src/sniffer/sniffer.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/sniffer/sniffer.cpp.s
 .PHONY : src/sniffer/sniffer.cpp.s
 
+src/tcp_session_tracker/tcp_session_tracket.o: src/tcp_session_tracker/tcp_session_tracket.cpp.o
+.PHONY : src/tcp_session_tracker/tcp_session_tracket.o
+
+# target to build an object file
+src/tcp_session_tracker/tcp_session_tracket.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/tcp_session_tracker/tcp_session_tracket.cpp.o
+.PHONY : src/tcp_session_tracker/tcp_session_tracket.cpp.o
+
+src/tcp_session_tracker/tcp_session_tracket.i: src/tcp_session_tracker/tcp_session_tracket.cpp.i
+.PHONY : src/tcp_session_tracker/tcp_session_tracket.i
+
+# target to preprocess a source file
+src/tcp_session_tracker/tcp_session_tracket.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/tcp_session_tracker/tcp_session_tracket.cpp.i
+.PHONY : src/tcp_session_tracker/tcp_session_tracket.cpp.i
+
+src/tcp_session_tracker/tcp_session_tracket.s: src/tcp_session_tracker/tcp_session_tracket.cpp.s
+.PHONY : src/tcp_session_tracker/tcp_session_tracket.s
+
+# target to generate assembly for a file
+src/tcp_session_tracker/tcp_session_tracket.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/tcp_session_tracker/tcp_session_tracket.cpp.s
+.PHONY : src/tcp_session_tracker/tcp_session_tracket.cpp.s
+
 src/utils/utils.o: src/utils/utils.cpp.o
 .PHONY : src/utils/utils.o
 
@@ -405,6 +429,9 @@ help:
 	@echo "... src/sniffer/sniffer.o"
 	@echo "... src/sniffer/sniffer.i"
 	@echo "... src/sniffer/sniffer.s"
+	@echo "... src/tcp_session_tracker/tcp_session_tracket.o"
+	@echo "... src/tcp_session_tracker/tcp_session_tracket.i"
+	@echo "... src/tcp_session_tracker/tcp_session_tracket.s"
 	@echo "... src/utils/utils.o"
 	@echo "... src/utils/utils.i"
 	@echo "... src/utils/utils.s"

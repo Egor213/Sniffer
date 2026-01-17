@@ -5,6 +5,7 @@ main: \
   CMakeFiles/main.dir/src/main.cpp.o \
   CMakeFiles/main.dir/src/sniffer/sniffer.cpp.o \
   CMakeFiles/main.dir/src/utils/utils.cpp.o \
+  CMakeFiles/main.dir/src/tcp_session_tracker/tcp_session_tracket.cpp.o \
   CMakeFiles/main.dir/src/pcap_file/reader/reader.cpp.o \
   CMakeFiles/main.dir/src/pcap_file/writer/writer.cpp.o \
   CMakeFiles/main.dir/src/pcap_file/parser/parser.cpp.o \
@@ -61,6 +62,8 @@ CMakeFiles/main.dir/src/main.cpp.o:
 CMakeFiles/main.dir/src/sniffer/sniffer.cpp.o:
 
 CMakeFiles/main.dir/src/utils/utils.cpp.o:
+
+CMakeFiles/main.dir/src/tcp_session_tracker/tcp_session_tracket.cpp.o:
 
 CMakeFiles/main.dir/src/pcap_file/reader/reader.cpp.o:
 

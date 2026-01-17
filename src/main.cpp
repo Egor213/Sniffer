@@ -61,8 +61,8 @@ int main(int argc, char* argv[]) {
 
     // std::string file = "out.pcap";
     // std::string file = "big_ftp.pcap";
-    // std::string file = "tcp_big_data.pcap";
-    std::string file = "test.pcap";
+    std::string file = "tcp_big_data.pcap";
+    // std::string file = "test.pcap";
     std::thread sniffer_thread([&sniffer, &file]() {
         sniffer.start(FILE_MODE, file);
         running = false;

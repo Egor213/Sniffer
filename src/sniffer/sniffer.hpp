@@ -22,6 +22,7 @@
 #include "pcap_file/parser/parser.hpp"
 #include "utils/enums.hpp"
 #include "utils/utils.hpp"
+#include "tcp_session_tracker/tcp_session_tracket.hpp"
 
 #define FTP_PORT 21
 #define FTP_CLEANER_SLEEP 60
@@ -45,7 +46,7 @@ private:
 
     std::optional<PacketInfo> process_packet(const u_char* packet_data, const pcap_pkthdr* packet_header);
 
-    std::unordered_set<FtpConnInfo, FtpConnInfoHash> ftp_connections;
+    std::unordered_set<TcpConnInfo, TcpConnInfoHash> ftp_connections;
 
     void read_file(const std::string& file_path);
     void parse_ftp_response(const PacketInfo& info);
@@ -57,6 +58,7 @@ private:
     std::mutex ftp_mutex;
     bool running;
 
-    int cnt = 0;
+    std::unique_ptr<TcpSessionTracker> tcp_tracker; 
+    void dump_completed_sessions();
 };
 

@@ -18,6 +18,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/main.dir/src/pcap_file/writer/writer.cpp.o.d"
   "CMakeFiles/main.dir/src/sniffer/sniffer.cpp.o"
   "CMakeFiles/main.dir/src/sniffer/sniffer.cpp.o.d"
+  "CMakeFiles/main.dir/src/tcp_session_tracker/tcp_session_tracket.cpp.o"
+  "CMakeFiles/main.dir/src/tcp_session_tracker/tcp_session_tracket.cpp.o.d"
   "CMakeFiles/main.dir/src/utils/utils.cpp.o"
   "CMakeFiles/main.dir/src/utils/utils.cpp.o.d"
   "main"

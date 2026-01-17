@@ -18,6 +18,8 @@ struct PacketInfo {
 
     uint8_t protocol;
     uint8_t ip_version;
+    uint32_t seq_num;
+    uint32_t ack_num;
     const u_char* payload;
     size_t payload_len;
 
@@ -62,13 +64,13 @@ private:
 
 
 
-struct FtpConnInfo {
+struct TcpConnInfo {
     FtpConnType conn_type;
     mutable std::chrono::system_clock::time_point last_use;
     std::string ip_address;
-    uint16_t port;
+    std::string port;
 
-    FtpConnInfo() : last_use(std::chrono::system_clock::now()) {}
+    TcpConnInfo() : last_use(std::chrono::system_clock::now()) {}
 
     void update_last_use() const {
         this->last_use = std::chrono::system_clock::now();
@@ -82,17 +84,17 @@ struct FtpConnInfo {
         return diff <= TTL_FTP;
     }
 
-    bool operator==(const FtpConnInfo& other) const {
+    bool operator==(const TcpConnInfo& other) const {
         return this->ip_address == other.ip_address &&
                this->port == other.port;
     }
 
 };
 
-struct FtpConnInfoHash {
-    std::size_t operator()(const FtpConnInfo& info) const {
+struct TcpConnInfoHash {
+    std::size_t operator()(const TcpConnInfo& info) const {
         auto h1 = std::hash<std::string>()(info.ip_address);
-        auto h2 = std::hash<uint16_t>()(info.port);
+        auto h2 = std::hash<std::string>()(info.port);
         return h1 ^ h2;
     }
 };

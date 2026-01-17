@@ -38,11 +38,20 @@ void BaseHandler::start() {
 
             this->process_packet(packet_value);
         }
-
-        
     }
 }
+
 
 void BaseHandler::stop() {
     this->running.store(false);
 }
+
+
+
+// ip:port SYN, SYN ACK, ACK -> FIN ACK, ACK, FIN ACK, ACK
+
+// SYN seq numb = X
+// SYN ACK seq numb = Y, ack numb = X + 1
+// ACK ack numb = Y + 1
+
+// ACK NUMBER = значение которое ожидается

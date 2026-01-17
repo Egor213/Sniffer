@@ -14,6 +14,7 @@ add_executable(main ${SOURCE_EXE})
 target_sources(main PRIVATE
     src/sniffer/sniffer.cpp
     src/utils/utils.cpp
+    src/tcp_session_tracker/tcp_session_tracket.cpp
     src/pcap_file/reader/reader.cpp
     src/pcap_file/writer/writer.cpp
     src/pcap_file/parser/parser.cpp
