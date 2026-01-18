@@ -21,11 +21,11 @@ enum FtpConnType {
 
 enum SessionState {
     CLOSED,
-    SYN_SENT,
-    SYN_RECEIVED,
+    SYN_SENT_1,
+    SYN_SENT_2,
     ESTABLISHED,
-    FIN_WAIT_1,
-    FIN_WAIT_2,
+    FIN_SENT_1,
+    FIN_ACK_1,
+    FIN_SENT_2,
     CLOSING,
-    TIME_WAIT
 };

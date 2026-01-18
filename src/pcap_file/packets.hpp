@@ -41,6 +41,8 @@ struct PacketInfo {
         os << "  Len:   " + std::to_string(payload_len) + " bytes\n";
         if (protocol == IPPROTO_TCP) {
             os << "  TCP Flags: " << format_tcp_flags(tcp_flags) << "\n";
+            os << "  Seq number: " << seq_num << "\n";
+            os << "  Ack number: " << ack_num << "\n";
         }
         os << "  Payload:  ";
         for (size_t i = 0; i < 10; ++i) {
@@ -67,8 +69,11 @@ private:
 struct TcpConnInfo {
     FtpConnType conn_type;
     mutable std::chrono::system_clock::time_point last_use;
-    std::string ip_address;
-    std::string port;
+
+    std::string src_ip = "-1";
+    std::string src_port = "-1";
+    std::string dst_ip = "-1"; 
+    std::string dst_port = "-1";
 
     TcpConnInfo() : last_use(std::chrono::system_clock::now()) {}
 
@@ -85,16 +90,27 @@ struct TcpConnInfo {
     }
 
     bool operator==(const TcpConnInfo& other) const {
-        return this->ip_address == other.ip_address &&
-               this->port == other.port;
+        if (dst_ip == "-1" && dst_port == "-1") {
+            return src_ip == other.src_ip && src_port == other.src_port;
+        } else if (src_ip == "-1" && src_port == "-1") {
+            return dst_ip == other.dst_ip && dst_port == other.dst_port;
+        } else {
+            return (src_ip == other.src_ip && src_port == other.src_port &&
+                dst_ip == other.dst_ip && dst_port == other.dst_port) ||
+               (src_ip == other.dst_ip && src_port == other.dst_port &&
+                dst_ip == other.src_ip && dst_port == other.src_port);
+        }
     }
 
 };
 
 struct TcpConnInfoHash {
     std::size_t operator()(const TcpConnInfo& info) const {
-        auto h1 = std::hash<std::string>()(info.ip_address);
-        auto h2 = std::hash<std::string>()(info.port);
-        return h1 ^ h2;
+        auto h1 = std::hash<std::string>()(info.src_ip);
+        auto h2 = std::hash<std::string>()(info.src_port);
+        auto h3 = std::hash<std::string>()(info.dst_ip);
+        auto h4 = std::hash<std::string>()(info.dst_port);
+
+        return h1 ^ h2 ^ h3 ^ h4;
     }
 };

@@ -21,4 +21,6 @@ private:
     
     void reset_session(TcpConnInfo& conn);
     void check_connection_completion(TcpConnInfo& conn);
+    void dump_closed_session(TcpConnInfo& conn);
+    void clear_stuck_sessions();
 };

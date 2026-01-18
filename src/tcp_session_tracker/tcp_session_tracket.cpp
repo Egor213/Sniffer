@@ -1,12 +1,12 @@
 #include "tcp_session_tracker/tcp_session_tracket.hpp"
 
 TcpSessionTracker::~TcpSessionTracker() {
-    // for (auto [per, con] : this->session_packets) {
-    //     std::cout << per.ip_address << ':' << per.port << ' ';
-    //     for (auto a : con) {
-    //         a.print();
-    //     }
-    // }
+    for (auto [per, con] : this->session_packets) {
+        std::cout << per.src_ip << ':' << per.src_port << "->" << per.dst_ip << ':' << per.dst_port << std::endl;
+        for (auto a : con) {
+            a.print();
+        }
+    }
 }
 
 void TcpSessionTracker::send_packet(PacketInfo packet) {
@@ -14,110 +14,104 @@ void TcpSessionTracker::send_packet(PacketInfo packet) {
         return;
     }
 
-    TcpConnInfo src_conn;
-    src_conn.ip_address = packet.src_ip;
-    src_conn.port = packet.src_port;
-
-    TcpConnInfo dst_conn;
-    dst_conn.ip_address = packet.dst_ip;
-    dst_conn.port = packet.dst_port;
-
-    if (this->state_map[src_conn] == ESTABLISHED) {
-        this->session_packets[src_conn].push_back(packet);
-    } else if (this->state_map[dst_conn] == ESTABLISHED) {
-        this->session_packets[dst_conn].push_back(packet);
+    TcpConnInfo conn;
+    conn.src_ip = packet.src_ip;
+    conn.src_port = packet.src_port;
+    conn.dst_ip = packet.dst_ip;
+    conn.dst_port = packet.dst_port;
+    
+    auto it = this->session_packets.find(conn);
+    if (it != this->session_packets.end()) {
+        const_cast<TcpConnInfo&>(it->first).update_last_use();
     }
+    this->session_packets[conn].push_back(packet);
+    auto& state = this->state_map[conn];
+    
+
+    // if (packet.tcp_flags & TH_SYN && !(packet.tcp_flags & TH_ACK)) {
+    //     this->state_map[conn] = SYN_SENT_1;
+
+    // } else if (
+    //     packet.tcp_flags & TH_SYN && 
+    //     packet.tcp_flags & TH_ACK && 
+    //     state == SYN_SENT_1
+    // ) {
+    //     state = SYN_SENT_2;
+        
+    // } else if (
+    //     packet.tcp_flags & TH_ACK && 
+    //     !(packet.tcp_flags & TH_SYN) &&
+    //     state == SYN_SENT_2
+    // ) {
+    //     state = ESTABLISHED;
+    // } else if (
+    //     packet.tcp_flags & TH_FIN &&
+    //     state == ESTABLISHED
+    // ) {
+    //     state = FIN_SENT_1;
+
+    // } else if (
+    //     packet.tcp_flags & TH_ACK &&
+    //     state == FIN_SENT_1
+    // ) {
+    //     state = FIN_ACK_1;
+        
+    // } else if (
+    //     packet.tcp_flags & TH_FIN &&
+    //     state == FIN_ACK_1
+    // ) {
+    //     state = FIN_SENT_2;
+
+    // } else if (
+    //     packet.tcp_flags & TH_ACK &&
+    //     state == FIN_SENT_2
+    // ) {
+    //     state = CLOSED;
+    //     this->dump_closed_session(conn);
+    // } else if (packet.tcp_flags & TH_RST) {
+    //     this->reset_session(conn);
+    // }
+
+    // TODO: по-хорошему тут нужно использовать seq и ack number
 
     if (packet.tcp_flags & TH_SYN && !(packet.tcp_flags & TH_ACK)) {
-        this->state_map[src_conn] = SYN_SENT;
-        this->session_packets[src_conn].push_back(packet);
-        
-    } else if (packet.tcp_flags & TH_SYN && packet.tcp_flags & TH_ACK) {
-        auto& state = this->state_map[dst_conn];
-        if (state == SYN_SENT) {
-            state = SYN_RECEIVED;
-            this->session_packets[dst_conn].push_back(packet);
-        }
-        
-    } else if (packet.tcp_flags & TH_ACK && !(packet.tcp_flags & TH_SYN)) {
-        auto& src_state = this->state_map[src_conn];
-        if (src_state == SYN_RECEIVED) {
-            src_state = ESTABLISHED;
-            this->session_packets[src_conn].push_back(packet);
-        }
-    } else if (packet.tcp_flags & TH_FIN) {
-        if (this->state_map[src_conn] == ESTABLISHED) {
-            this->state_map[src_conn] = FIN_WAIT_1;
-            this->session_packets[src_conn].push_back(packet);
-        } else if (this->state_map[dst_conn] == ESTABLISHED) {
-            this->session_packets[dst_conn].push_back(packet);
-        }
-        
-    } else if (packet.tcp_flags == TH_ACK) {
-        auto& src_state = this->state_map[src_conn];
-        auto& dst_state = this->state_map[dst_conn];
-        
-        if (src_state == FIN_WAIT_1 || src_state == CLOSING) {
-            if (packet.ack_num > 0) {
-                src_state = (src_state == FIN_WAIT_1) ? FIN_WAIT_2 : TIME_WAIT;
-                this->session_packets[src_conn].push_back(packet);
-            }
-        } else if (dst_state == FIN_WAIT_1) {
-            if (packet.ack_num > 0) {
-                dst_state = FIN_WAIT_2;
-                this->session_packets[dst_conn].push_back(packet);
-            }
-        }
-        
-    }
+        this->state_map[conn] = SYN_SENT_1;
 
-    this->check_connection_completion(src_conn);
-    this->check_connection_completion(dst_conn);
+    } else if (
+        packet.tcp_flags & TH_SYN && 
+        packet.tcp_flags & TH_ACK && 
+        state == SYN_SENT_1
+    ) {
+        state = SYN_SENT_2;
+        
+    } else if (packet.tcp_flags & TH_ACK) {
+
+        if (state == SYN_SENT_2) {
+            state = ESTABLISHED;
+        } else if (packet.tcp_flags & TH_FIN && state == ESTABLISHED) {
+            state = FIN_SENT_1;
+        } else if (state == FIN_SENT_1) {
+            state = FIN_ACK_1;
+        } else if (packet.tcp_flags & TH_FIN && state == FIN_ACK_1) {
+            state = FIN_SENT_2;
+        } else if (state == FIN_SENT_2) {
+            state = CLOSED;
+            this->dump_closed_session(conn);
+        }
+        
+    } else if (packet.tcp_flags & TH_RST) {
+        this->reset_session(conn);
+    }
+    
+
+    // TODO: Вынести в отделный поток и запускать реже
+    this->clear_stuck_sessions();
 }
 
-void TcpSessionTracker::check_connection_completion(TcpConnInfo& conn) {
-    auto state_it = this->state_map.find(conn);
-    if (state_it == this->state_map.end()) {
-        return;
-    }
-
-    auto& state = state_it->second;
-    
-    if (state == TIME_WAIT || state == CLOSED) {
-        auto packets_it = this->session_packets.find(conn);
-        if (packets_it != this->session_packets.end()) {
-            auto& packets = packets_it->second;
-            
-            bool has_three_way = false;
-            bool has_syn = false, has_syn_ack = false, has_ack = false;
-            
-            bool has_graceful_close = false;
-            int fin_count = 0, ack_count = 0;
-            
-            for (const auto& pkt : packets) {
-                if (pkt.tcp_flags == TH_SYN) has_syn = true;
-                if (pkt.tcp_flags == (TH_SYN | TH_ACK)) has_syn_ack = true;
-                if (pkt.tcp_flags == TH_ACK && has_syn && has_syn_ack) has_ack = true;
-                
-                if (pkt.tcp_flags & TH_FIN) fin_count++;
-                if (pkt.tcp_flags == TH_ACK && fin_count > 0) ack_count++;
-            }
-            
-            has_three_way = has_syn && has_syn_ack && has_ack;
-            has_graceful_close = (fin_count >= 2 && ack_count >= 2);
-            
-            if (has_three_way && has_graceful_close) {
-                for (const auto& pkt : packets) {
-                    PacketInfo completed_pkt = pkt;
-                    completed_pkt.type_packet = TCP_CLEAN;
-                    this->completed_tcp_packets.push_back(completed_pkt);
-                }
-                
-                this->session_packets.erase(conn);
-                this->state_map.erase(conn);
-            }
-        }
-    }
+void TcpSessionTracker::dump_closed_session(TcpConnInfo& conn) {
+    auto v = this->session_packets[conn];
+    this->completed_tcp_packets.insert(this->completed_tcp_packets.end(), v.begin(), v.end());
+    this->reset_session(conn);
 }
 
 
@@ -132,4 +126,19 @@ const std::vector<PacketInfo>& TcpSessionTracker::get_completed_packets() const 
 
 void TcpSessionTracker::clear_completed_packets() {
     this->completed_tcp_packets.clear();
+}
+
+
+void TcpSessionTracker::clear_stuck_sessions() {
+    std::vector<TcpConnInfo> to_remove;
+    
+    for (auto& [conn, state] : this->state_map) {
+        if (!conn.is_active()) {
+            to_remove.push_back(conn);
+        }
+    }
+    
+    for (auto& conn : to_remove) {
+        this->reset_session(conn);
+    }
 }

@@ -56,12 +56,12 @@ std::optional<PacketInfo> Sniffer::process_packet(const u_char* packet_data, con
             this->parse_ftp_response(info);
         } else {            
             TcpConnInfo src_conn_info;
-            src_conn_info.ip_address = info.src_ip;
-            src_conn_info.port = info.src_port;
+            src_conn_info.src_ip = info.src_ip;
+            src_conn_info.src_port= info.src_port;
 
             TcpConnInfo dst_conn_info;
-            dst_conn_info.ip_address = info.dst_ip;
-            dst_conn_info.port = info.dst_port;
+            dst_conn_info.dst_ip = info.dst_ip;
+            dst_conn_info.dst_port = info.dst_port;
 
 
             auto src_it = this->ftp_connections.find(src_conn_info);
@@ -85,6 +85,8 @@ std::optional<PacketInfo> Sniffer::process_packet(const u_char* packet_data, con
 
 void Sniffer::parse_ftp_response(const PacketInfo& info) {
     TcpConnInfo connection_info;
+    connection_info.dst_ip = info.dst_ip;
+    connection_info.dst_port = info.dst_port;
     std::string response((const char *)info.payload, info.payload_len);
     if (response.find("227 Entering Passive Mode") != std::string::npos) {
         std::size_t start = response.find('(');
@@ -93,8 +95,8 @@ void Sniffer::parse_ftp_response(const PacketInfo& info) {
             auto tokens = utils::split_string(response.substr(start + 1, end - start - 1), ',');
             int port_high = std::stoi(tokens[tokens.size() - 2]);
             int port_low = std::stoi(tokens[tokens.size() - 1]);
-            connection_info.port = port_high * 256 + port_low;
-            connection_info.ip_address = info.src_ip;
+            connection_info.src_port = port_high * 256 + port_low;
+            connection_info.src_ip = info.src_ip;
             this->ftp_connections.insert(connection_info);
         }
     } else if (response.find("229 Entering Extended Passive Mode") != std::string::npos) {
@@ -102,16 +104,16 @@ void Sniffer::parse_ftp_response(const PacketInfo& info) {
         std::size_t end = response.find(')');
         if (start != std::string::npos && end != std::string::npos) {
             auto tokens = utils::split_string(response.substr(start + 1, end - start - 1), '|');
-            connection_info.port = std::stoi(tokens[tokens.size() - 1]);
-            connection_info.ip_address = info.src_ip;
+            connection_info.src_port = std::stoi(tokens[tokens.size() - 1]);
+            connection_info.src_ip = info.src_ip;
             this->ftp_connections.insert(connection_info);
         }
     } else if (response.find("PORT") == 0) {
         auto tokens = utils::split_string(response, ',');
         int port_high = std::stoi(tokens[tokens.size() - 2]);
         int port_low = std::stoi(tokens[tokens.size() - 1]);
-        connection_info.port = port_high * 256 + port_low;
-        connection_info.ip_address = info.src_ip;
+        connection_info.src_port = port_high * 256 + port_low;
+        connection_info.src_ip = info.src_ip;
         this->ftp_connections.insert(connection_info);
     }
 }
@@ -212,7 +214,6 @@ SafeQueue<PacketInfo>* Sniffer::get_queue(EventType type) {
 
 void Sniffer::dump_completed_sessions() {
     for (PacketInfo completed_packet : this->tcp_tracker->get_completed_packets()){
-        std::cout << "AAAAAAAAAA" << std::endl;
         completed_packet.type_packet = TCP_CLEAN;
         this->dispatch_packet(completed_packet);
     }
