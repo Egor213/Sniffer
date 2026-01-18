@@ -7,7 +7,7 @@ PacketInfo {
   TCP Flags: SYN 
   Seq number: 241513788
   Ack number: 0
-  Payload:  72 84 84 80 47 49 46 49 32 50 
+  Payload:  0 0 69 0 0 0 0 0 0 0 
 }
 PacketInfo {
   source_ip:  151.101.1.69:80
@@ -18,7 +18,7 @@ PacketInfo {
   TCP Flags: SYN ACK 
   Seq number: 709262874
   Ack number: 241513789
-  Payload:  72 84 84 80 47 49 46 49 32 50 
+  Payload:  0 0 129 1 0 0 0 0 0 0 
 }
 PacketInfo {
   source_ip:  192.168.1.104:50563
@@ -29,7 +29,7 @@ PacketInfo {
   TCP Flags: ACK 
   Seq number: 241513789
   Ack number: 709262875
-  Payload:  72 84 84 80 47 49 46 49 32 50 
+  Payload:  0 0 69 0 0 0 0 0 0 0 
 }
 PacketInfo {
   source_ip:  192.168.1.104:50563
@@ -40,7 +40,7 @@ PacketInfo {
   TCP Flags: ACK 
   Seq number: 241513789
   Ack number: 709262875
-  Payload:  72 84 84 80 47 49 46 49 32 50 ...
+  Payload:  71 69 84 32 47 32 72 84 84 80 ...
 }
 PacketInfo {
   source_ip:  151.101.1.69:80
@@ -62,7 +62,7 @@ PacketInfo {
   TCP Flags: ACK 
   Seq number: 241513825
   Ack number: 709262931
-  Payload:  72 84 84 80 47 49 46 49 32 50 
+  Payload:  0 0 129 1 0 0 0 0 0 0 
 }
 PacketInfo {
   source_ip:  192.168.1.103:61399
@@ -73,7 +73,7 @@ PacketInfo {
   TCP Flags: SYN 
   Seq number: 719073636
   Ack number: 0
-  Payload:  72 84 84 80 47 49 46 49 32 50 
+  Payload:  0 0 129 1 0 0 0 0 0 0 
 }
 PacketInfo {
   source_ip:  192.168.1.102:56350
@@ -84,7 +84,7 @@ PacketInfo {
   TCP Flags: SYN 
   Seq number: 634505972
   Ack number: 0
-  Payload:  72 84 84 80 47 49 46 49 32 50 
+  Payload:  0 0 69 0 0 0 0 0 0 0 
 }
 PacketInfo {
   source_ip:  104.16.249.249:80
@@ -95,7 +95,7 @@ PacketInfo {
   TCP Flags: SYN ACK 
   Seq number: 254749114
   Ack number: 634505973
-  Payload:  72 84 84 80 47 49 46 49 32 50 
+  Payload:  0 0 129 1 0 0 0 0 0 0 
 }
 PacketInfo {
   source_ip:  192.168.1.102:56350
@@ -106,7 +106,7 @@ PacketInfo {
   TCP Flags: ACK 
   Seq number: 634505973
   Ack number: 254749115
-  Payload:  72 84 84 80 47 49 46 49 32 50 
+  Payload:  0 0 69 0 0 0 0 0 0 0 
 }
 PacketInfo {
   source_ip:  192.168.1.101:60997
@@ -117,7 +117,7 @@ PacketInfo {
   TCP Flags: SYN 
   Seq number: 25876959
   Ack number: 0
-  Payload:  72 84 84 80 47 49 46 49 32 50 
+  Payload:  0 0 129 1 0 0 0 0 0 0 
 }
 PacketInfo {
   source_ip:  142.250.185.78:443
@@ -128,7 +128,7 @@ PacketInfo {
   TCP Flags: SYN ACK 
   Seq number: 1311313399
   Ack number: 25876960
-  Payload:  72 84 84 80 47 49 46 49 32 50 
+  Payload:  0 0 69 0 0 0 0 0 0 0 
 }
 PacketInfo {
   source_ip:  192.168.1.101:60997
@@ -139,7 +139,7 @@ PacketInfo {
   TCP Flags: ACK 
   Seq number: 25876960
   Ack number: 1311313400
-  Payload:  72 84 84 80 47 49 46 49 32 50 
+  Payload:  0 0 129 1 0 0 0 0 0 0 
 }
 PacketInfo {
   source_ip:  192.168.1.101:60997
@@ -150,7 +150,7 @@ PacketInfo {
   TCP Flags: ACK 
   Seq number: 25876960
   Ack number: 1311313400
-  Payload:  72 84 84 80 47 49 46 49 32 50 ...
+  Payload:  22 3 1 0 165 1 0 0 161 3 ...
 }
 PacketInfo {
   source_ip:  142.250.185.78:443
@@ -161,7 +161,7 @@ PacketInfo {
   TCP Flags: ACK 
   Seq number: 1311313400
   Ack number: 25877121
-  Payload:  72 84 84 80 47 49 46 49 32 50 
+  Payload:  0 0 69 0 0 0 0 0 0 0 
 }
 PacketInfo {
   source_ip:  142.250.185.78:443
@@ -172,7 +172,7 @@ PacketInfo {
   TCP Flags: ACK 
   Seq number: 1311313400
   Ack number: 25877121
-  Payload:  72 84 84 80 47 49 46 49 32 50 ...
+  Payload:  80 79 83 84 32 47 97 112 105 47 ...
 }
 PacketInfo {
   source_ip:  192.168.1.101:60997
@@ -183,7 +183,7 @@ PacketInfo {
   TCP Flags: ACK 
   Seq number: 25877121
   Ack number: 1311313491
-  Payload:  72 84 84 80 47 49 46 49 32 50 
+  Payload:  0 0 129 1 0 0 0 0 0 0 
 }
 PacketInfo {
   source_ip:  192.168.1.101:60997
@@ -194,7 +194,7 @@ PacketInfo {
   TCP Flags: ACK 
   Seq number: 25877121
   Ack number: 1311313491
-  Payload:  72 84 84 80 47 49 46 49 32 50 ...
+  Payload:  80 79 83 84 32 47 97 112 105 47 ...
 }
 PacketInfo {
   source_ip:  142.250.185.78:443
@@ -205,7 +205,7 @@ PacketInfo {
   TCP Flags: ACK 
   Seq number: 1311313491
   Ack number: 25877222
-  Payload:  72 84 84 80 47 49 46 49 32 50 
+  Payload:  0 0 69 0 0 0 0 0 0 0 
 }
 PacketInfo {
   source_ip:  142.250.185.78:443
@@ -227,5 +227,236 @@ PacketInfo {
   TCP Flags: ACK 
   Seq number: 25877222
   Ack number: 1311313551
-  Payload:  72 84 84 80 47 49 46 49 32 50 
+  Payload:  0 0 129 1 0 0 0 0 0 0 
+}
+PacketInfo {
+  source_ip:  192.168.1.104:50563
+  dest_ip:  151.101.1.69:80
+  protocol: TCP
+  IP Ver: 4
+  Len:   0 bytes
+  TCP Flags: SYN 
+  Seq number: 241513788
+  Ack number: 0
+  Payload:  0 0 69 0 0 0 0 0 0 0 
+}
+PacketInfo {
+  source_ip:  151.101.1.69:80
+  dest_ip:  192.168.1.104:50563
+  protocol: TCP
+  IP Ver: 4
+  Len:   0 bytes
+  TCP Flags: SYN ACK 
+  Seq number: 709262874
+  Ack number: 241513789
+  Payload:  0 0 129 1 0 0 0 0 0 0 
+}
+PacketInfo {
+  source_ip:  192.168.1.104:50563
+  dest_ip:  151.101.1.69:80
+  protocol: TCP
+  IP Ver: 4
+  Len:   0 bytes
+  TCP Flags: ACK 
+  Seq number: 241513789
+  Ack number: 709262875
+  Payload:  0 0 69 0 0 0 0 0 0 0 
+}
+PacketInfo {
+  source_ip:  192.168.1.104:50563
+  dest_ip:  151.101.1.69:80
+  protocol: TCP
+  IP Ver: 4
+  Len:   36 bytes
+  TCP Flags: ACK 
+  Seq number: 241513789
+  Ack number: 709262875
+  Payload:  71 69 84 32 47 32 72 84 84 80 ...
+}
+PacketInfo {
+  source_ip:  151.101.1.69:80
+  dest_ip:  192.168.1.104:50563
+  protocol: TCP
+  IP Ver: 4
+  Len:   56 bytes
+  TCP Flags: ACK 
+  Seq number: 709262875
+  Ack number: 241513825
+  Payload:  72 84 84 80 47 49 46 49 32 50 ...
+}
+PacketInfo {
+  source_ip:  192.168.1.104:50563
+  dest_ip:  151.101.1.69:80
+  protocol: TCP
+  IP Ver: 4
+  Len:   0 bytes
+  TCP Flags: ACK 
+  Seq number: 241513825
+  Ack number: 709262931
+  Payload:  0 0 129 1 0 0 0 0 0 0 
+}
+PacketInfo {
+  source_ip:  192.168.1.103:61399
+  dest_ip:  8.8.8.8:53
+  protocol: TCP
+  IP Ver: 4
+  Len:   0 bytes
+  TCP Flags: SYN 
+  Seq number: 719073636
+  Ack number: 0
+  Payload:  0 0 129 1 0 0 0 0 0 0 
+}
+PacketInfo {
+  source_ip:  192.168.1.102:56350
+  dest_ip:  104.16.249.249:80
+  protocol: TCP
+  IP Ver: 4
+  Len:   0 bytes
+  TCP Flags: SYN 
+  Seq number: 634505972
+  Ack number: 0
+  Payload:  0 0 69 0 0 0 0 0 0 0 
+}
+PacketInfo {
+  source_ip:  104.16.249.249:80
+  dest_ip:  192.168.1.102:56350
+  protocol: TCP
+  IP Ver: 4
+  Len:   0 bytes
+  TCP Flags: SYN ACK 
+  Seq number: 254749114
+  Ack number: 634505973
+  Payload:  0 0 129 1 0 0 0 0 0 0 
+}
+PacketInfo {
+  source_ip:  192.168.1.102:56350
+  dest_ip:  104.16.249.249:80
+  protocol: TCP
+  IP Ver: 4
+  Len:   0 bytes
+  TCP Flags: ACK 
+  Seq number: 634505973
+  Ack number: 254749115
+  Payload:  0 0 69 0 0 0 0 0 0 0 
+}
+PacketInfo {
+  source_ip:  192.168.1.101:60997
+  dest_ip:  142.250.185.78:443
+  protocol: TCP
+  IP Ver: 4
+  Len:   0 bytes
+  TCP Flags: SYN 
+  Seq number: 25876959
+  Ack number: 0
+  Payload:  0 0 129 1 0 0 0 0 0 0 
+}
+PacketInfo {
+  source_ip:  142.250.185.78:443
+  dest_ip:  192.168.1.101:60997
+  protocol: TCP
+  IP Ver: 4
+  Len:   0 bytes
+  TCP Flags: SYN ACK 
+  Seq number: 1311313399
+  Ack number: 25876960
+  Payload:  0 0 69 0 0 0 0 0 0 0 
+}
+PacketInfo {
+  source_ip:  192.168.1.101:60997
+  dest_ip:  142.250.185.78:443
+  protocol: TCP
+  IP Ver: 4
+  Len:   0 bytes
+  TCP Flags: ACK 
+  Seq number: 25876960
+  Ack number: 1311313400
+  Payload:  0 0 129 1 0 0 0 0 0 0 
+}
+PacketInfo {
+  source_ip:  192.168.1.101:60997
+  dest_ip:  142.250.185.78:443
+  protocol: TCP
+  IP Ver: 4
+  Len:   161 bytes
+  TCP Flags: ACK 
+  Seq number: 25876960
+  Ack number: 1311313400
+  Payload:  22 3 1 0 165 1 0 0 161 3 ...
+}
+PacketInfo {
+  source_ip:  142.250.185.78:443
+  dest_ip:  192.168.1.101:60997
+  protocol: TCP
+  IP Ver: 4
+  Len:   0 bytes
+  TCP Flags: ACK 
+  Seq number: 1311313400
+  Ack number: 25877121
+  Payload:  0 0 69 0 0 0 0 0 0 0 
+}
+PacketInfo {
+  source_ip:  142.250.185.78:443
+  dest_ip:  192.168.1.101:60997
+  protocol: TCP
+  IP Ver: 4
+  Len:   91 bytes
+  TCP Flags: ACK 
+  Seq number: 1311313400
+  Ack number: 25877121
+  Payload:  80 79 83 84 32 47 97 112 105 47 ...
+}
+PacketInfo {
+  source_ip:  192.168.1.101:60997
+  dest_ip:  142.250.185.78:443
+  protocol: TCP
+  IP Ver: 4
+  Len:   0 bytes
+  TCP Flags: ACK 
+  Seq number: 25877121
+  Ack number: 1311313491
+  Payload:  0 0 129 1 0 0 0 0 0 0 
+}
+PacketInfo {
+  source_ip:  192.168.1.101:60997
+  dest_ip:  142.250.185.78:443
+  protocol: TCP
+  IP Ver: 4
+  Len:   101 bytes
+  TCP Flags: ACK 
+  Seq number: 25877121
+  Ack number: 1311313491
+  Payload:  80 79 83 84 32 47 97 112 105 47 ...
+}
+PacketInfo {
+  source_ip:  142.250.185.78:443
+  dest_ip:  192.168.1.101:60997
+  protocol: TCP
+  IP Ver: 4
+  Len:   0 bytes
+  TCP Flags: ACK 
+  Seq number: 1311313491
+  Ack number: 25877222
+  Payload:  0 0 69 0 0 0 0 0 0 0 
+}
+PacketInfo {
+  source_ip:  142.250.185.78:443
+  dest_ip:  192.168.1.101:60997
+  protocol: TCP
+  IP Ver: 4
+  Len:   60 bytes
+  TCP Flags: ACK 
+  Seq number: 1311313491
+  Ack number: 25877222
+  Payload:  72 84 84 80 47 49 46 49 32 50 ...
+}
+PacketInfo {
+  source_ip:  192.168.1.101:60997
+  dest_ip:  142.250.185.78:443
+  protocol: TCP
+  IP Ver: 4
+  Len:   0 bytes
+  TCP Flags: ACK 
+  Seq number: 25877222
+  Ack number: 1311313551
+  Payload:  0 0 129 1 0 0 0 0 0 0 
 }

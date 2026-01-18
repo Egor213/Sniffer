@@ -3,9 +3,12 @@
 
 OtherHandler::OtherHandler(const std::string& output_file, SafeQueue<PacketInfo>* queue) 
     : BaseHandler(output_file, queue), pcap_writer(std::make_unique<PcapFileWriter>()) {
-    this->pcap_writer->open(output_file + ".pcap");
-    this->txt_file.open(output_file + ".txt");
-}
+    
+        this->pcap_writer->open(output_file + ".pcap");
+        this->txt_file.open(output_file + ".txt");
+        
+        std::cout << "Обработчик 4 (OtherHandler) запустился" << std::endl;
+    }
 
 
 OtherHandler::~OtherHandler() {
@@ -14,6 +17,7 @@ OtherHandler::~OtherHandler() {
     if (this->txt_file.is_open()) {
         this->txt_file.close();
     }
+    std::cout << "Обработчик 4 (OtherHandler) завершил свою работу" << std::endl;
 }
 
 
@@ -22,13 +26,16 @@ void OtherHandler::process_packet(const PacketInfo& packet) {
         std::stoi(packet.src_port) >= 20000 &&
         std::stoi(packet.src_port) <= 25000
     ) {
-        std::cout << "Обработчик 3: " << utils::get_current_time() << " пакет UDP " 
+        std::cout << "Обработчик 4: " << utils::get_current_time() << " пакет UDP " 
                   << packet.src_ip << ':' << packet.src_port << " -> " 
                   << packet.dst_ip << ':' << packet.dst_port << " игнорируется"
                   << std::endl;
     } else {
         packet.print(this->txt_file);
-        this->pcap_writer->write_packet(packet.packet_header, packet.packet_data);
+        const pcap_pkthdr* header = packet.get_packet_header();
+        const u_char* data = packet.get_packet_data();
+
+        this->pcap_writer->write_packet(header, data);
     }
     
 }

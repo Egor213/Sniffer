@@ -1,8 +1,16 @@
 #include "pcap_file/parser/parser.hpp"
+#include <cstring> 
 
-
-std::optional<PacketInfo> PcapFileParser::parse_file(u_char* packet_data, pcap_pkthdr* packet_header) {
+std::optional<PacketInfo> PcapFileParser::parse_file(u_char* packet_data_t, pcap_pkthdr* packet_header_t) {
     PacketInfo info;
+    info.packet_header = *packet_header_t;
+    
+    info.packet_data_copy.resize(packet_header_t->caplen);
+    std::memcpy(info.packet_data_copy.data(), packet_data_t, packet_header_t->caplen);
+
+    const u_char* packet_data = info.packet_data_copy.data();
+    const pcap_pkthdr* packet_header = &info.packet_header;
+    
     struct ether_header* ether_header = (struct ether_header*) packet_data;
     size_t ethernet_len = sizeof(struct ether_header);
 
@@ -64,7 +72,5 @@ std::optional<PacketInfo> PcapFileParser::parse_file(u_char* packet_data, pcap_p
         info.dst_port = std::to_string(ntohs(udp_header->dest));
         info.src_port = std::to_string(ntohs(udp_header->source));
     }
-    info.packet_data = packet_data;
-    info.packet_header = packet_header;
     return info;
 }

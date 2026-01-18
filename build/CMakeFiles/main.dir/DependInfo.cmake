@@ -12,6 +12,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/egor/infoTeck/src/handlers/ftp_control_handler/ftp_control_handler.cpp" "CMakeFiles/main.dir/src/handlers/ftp_control_handler/ftp_control_handler.cpp.o" "gcc" "CMakeFiles/main.dir/src/handlers/ftp_control_handler/ftp_control_handler.cpp.o.d"
   "/home/egor/infoTeck/src/handlers/ftp_data_handler/ftp_data_handler.cpp" "CMakeFiles/main.dir/src/handlers/ftp_data_handler/ftp_data_handler.cpp.o" "gcc" "CMakeFiles/main.dir/src/handlers/ftp_data_handler/ftp_data_handler.cpp.o.d"
   "/home/egor/infoTeck/src/handlers/other_handler/other_handler.cpp" "CMakeFiles/main.dir/src/handlers/other_handler/other_handler.cpp.o" "gcc" "CMakeFiles/main.dir/src/handlers/other_handler/other_handler.cpp.o.d"
+  "/home/egor/infoTeck/src/handlers/tcp_clean_handler/tcp_clean_handler.cpp" "CMakeFiles/main.dir/src/handlers/tcp_clean_handler/tcp_clean_handler.cpp.o" "gcc" "CMakeFiles/main.dir/src/handlers/tcp_clean_handler/tcp_clean_handler.cpp.o.d"
   "/home/egor/infoTeck/src/main.cpp" "CMakeFiles/main.dir/src/main.cpp.o" "gcc" "CMakeFiles/main.dir/src/main.cpp.o.d"
   "/home/egor/infoTeck/src/pcap_file/parser/parser.cpp" "CMakeFiles/main.dir/src/pcap_file/parser/parser.cpp.o" "gcc" "CMakeFiles/main.dir/src/pcap_file/parser/parser.cpp.o.d"
   "/home/egor/infoTeck/src/pcap_file/reader/reader.cpp" "CMakeFiles/main.dir/src/pcap_file/reader/reader.cpp.o" "gcc" "CMakeFiles/main.dir/src/pcap_file/reader/reader.cpp.o.d"

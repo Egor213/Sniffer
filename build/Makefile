@@ -225,6 +225,30 @@ src/handlers/other_handler/other_handler.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/handlers/other_handler/other_handler.cpp.s
 .PHONY : src/handlers/other_handler/other_handler.cpp.s
 
+src/handlers/tcp_clean_handler/tcp_clean_handler.o: src/handlers/tcp_clean_handler/tcp_clean_handler.cpp.o
+.PHONY : src/handlers/tcp_clean_handler/tcp_clean_handler.o
+
+# target to build an object file
+src/handlers/tcp_clean_handler/tcp_clean_handler.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/handlers/tcp_clean_handler/tcp_clean_handler.cpp.o
+.PHONY : src/handlers/tcp_clean_handler/tcp_clean_handler.cpp.o
+
+src/handlers/tcp_clean_handler/tcp_clean_handler.i: src/handlers/tcp_clean_handler/tcp_clean_handler.cpp.i
+.PHONY : src/handlers/tcp_clean_handler/tcp_clean_handler.i
+
+# target to preprocess a source file
+src/handlers/tcp_clean_handler/tcp_clean_handler.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/handlers/tcp_clean_handler/tcp_clean_handler.cpp.i
+.PHONY : src/handlers/tcp_clean_handler/tcp_clean_handler.cpp.i
+
+src/handlers/tcp_clean_handler/tcp_clean_handler.s: src/handlers/tcp_clean_handler/tcp_clean_handler.cpp.s
+.PHONY : src/handlers/tcp_clean_handler/tcp_clean_handler.s
+
+# target to generate assembly for a file
+src/handlers/tcp_clean_handler/tcp_clean_handler.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/handlers/tcp_clean_handler/tcp_clean_handler.cpp.s
+.PHONY : src/handlers/tcp_clean_handler/tcp_clean_handler.cpp.s
+
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
 
@@ -414,6 +438,9 @@ help:
 	@echo "... src/handlers/other_handler/other_handler.o"
 	@echo "... src/handlers/other_handler/other_handler.i"
 	@echo "... src/handlers/other_handler/other_handler.s"
+	@echo "... src/handlers/tcp_clean_handler/tcp_clean_handler.o"
+	@echo "... src/handlers/tcp_clean_handler/tcp_clean_handler.i"
+	@echo "... src/handlers/tcp_clean_handler/tcp_clean_handler.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

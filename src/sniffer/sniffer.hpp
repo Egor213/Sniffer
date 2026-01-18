@@ -15,6 +15,8 @@
 #include <chrono>
 #include <thread>
 #include <condition_variable>
+#include <filesystem>
+#include <algorithm>
 
 #include "handlers/base_handler.hpp"
 #include "safe_queue/safe_queue.hpp"
@@ -49,6 +51,7 @@ private:
     std::unordered_set<TcpConnInfo, TcpConnInfoHash> ftp_connections;
 
     void read_file(const std::string& file_path);
+    std::vector<std::string> read_directory(const std::string& dir_path);
     void parse_ftp_response(const PacketInfo& info);
     void run();
 

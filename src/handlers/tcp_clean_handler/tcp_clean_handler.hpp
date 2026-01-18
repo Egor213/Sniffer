@@ -11,6 +11,7 @@
 class TcpCleanHandler : public BaseHandler {
 public:
     TcpCleanHandler(const std::string& output_file, SafeQueue<PacketInfo>* queue);
+    
     ~TcpCleanHandler();
     
     void process_packet(const PacketInfo& packet) override;

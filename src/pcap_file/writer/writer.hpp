@@ -10,7 +10,7 @@ public:
     ~PcapFileWriter();
     
     bool open(const std::string& file_path, int link_type = DLT_EN10MB, int snaplen = 65535);
-    void write_packet(pcap_pkthdr* header, u_char* data);
+    void write_packet(const pcap_pkthdr* header, const u_char* data);
 
     void flush();
     void close();

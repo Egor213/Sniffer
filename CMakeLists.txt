@@ -21,7 +21,7 @@ target_sources(main PRIVATE
     src/handlers/base_handler.cpp
     src/handlers/ftp_control_handler/ftp_control_handler.cpp
     src/handlers/ftp_data_handler/ftp_data_handler.cpp
-    src/handlers/tcp_clean_handler/tcp_clean_handler.hpp
+    src/handlers/tcp_clean_handler/tcp_clean_handler.cpp
     src/handlers/other_handler/other_handler.cpp
 )
 

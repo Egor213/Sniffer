@@ -5,6 +5,7 @@ FtpControlHandler::FtpControlHandler(const std::string& output_file, SafeQueue<P
     : BaseHandler(output_file, queue), pcap_writer(std::make_unique<PcapFileWriter>()) {
     this->pcap_writer->open(output_file + ".pcap");
     this->txt_file.open(output_file + ".txt");
+    std::cout << "Обработчик 1 (FtpControlHandler) запустился" << std::endl;
 }
 
 
@@ -14,11 +15,15 @@ FtpControlHandler::~FtpControlHandler() {
     if (this->txt_file.is_open()) {
         this->txt_file.close();
     }
+    std::cout << "Обработчик 1 (FtpControlHandler) завершил свою работу" << std::endl;
 }
 
 
 void FtpControlHandler::process_packet(const PacketInfo& packet) {
     packet.print(this->txt_file);
-    this->pcap_writer->write_packet(packet.packet_header, packet.packet_data);
+    const pcap_pkthdr* header = packet.get_packet_header();
+    const u_char* data = packet.get_packet_data();
+
+    this->pcap_writer->write_packet(header, data);
 }
 

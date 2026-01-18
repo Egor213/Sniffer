@@ -39,7 +39,7 @@ int main(int argc, char* argv[]) {
     );
 
     handlers.emplace_back(
-        std::make_unique<OtherHandler>(TCP_CLEAN_FILE, sniffer.get_queue(TCP_CLEAN))
+        std::make_unique<TcpCleanHandler>(TCP_CLEAN_FILE, sniffer.get_queue(TCP_CLEAN))
     );
 
     handlers.emplace_back(
@@ -65,7 +65,7 @@ int main(int argc, char* argv[]) {
     // std::string file = "test.pcap";
     std::string file = "tcp_mixed_sessions.pcap";
     std::thread sniffer_thread([&sniffer, &file]() {
-        sniffer.start(FILE_MODE, file);
+        sniffer.start(DIRECTORY_MODE, "test");
         running = false;
     });
 

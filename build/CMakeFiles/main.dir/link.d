@@ -12,6 +12,7 @@ main: \
   CMakeFiles/main.dir/src/handlers/base_handler.cpp.o \
   CMakeFiles/main.dir/src/handlers/ftp_control_handler/ftp_control_handler.cpp.o \
   CMakeFiles/main.dir/src/handlers/ftp_data_handler/ftp_data_handler.cpp.o \
+  CMakeFiles/main.dir/src/handlers/tcp_clean_handler/tcp_clean_handler.cpp.o \
   CMakeFiles/main.dir/src/handlers/other_handler/other_handler.cpp.o \
   /home/egor/infoTeck/libs/libpcap/libpcap.so.1.10.5 \
   /usr/lib/gcc/x86_64-linux-gnu/13/libstdc++.so \
@@ -76,6 +77,8 @@ CMakeFiles/main.dir/src/handlers/base_handler.cpp.o:
 CMakeFiles/main.dir/src/handlers/ftp_control_handler/ftp_control_handler.cpp.o:
 
 CMakeFiles/main.dir/src/handlers/ftp_data_handler/ftp_data_handler.cpp.o:
+
+CMakeFiles/main.dir/src/handlers/tcp_clean_handler/tcp_clean_handler.cpp.o:
 
 CMakeFiles/main.dir/src/handlers/other_handler/other_handler.cpp.o:
 

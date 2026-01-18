@@ -23,11 +23,11 @@ struct PacketInfo {
     const u_char* payload;
     size_t payload_len;
 
+    pcap_pkthdr packet_header;        
+    std::vector<u_char> packet_data_copy;
+
     bool finish_packet = false;
     EventType type_packet = OTHER;
-
-    u_char* packet_data;
-    pcap_pkthdr* packet_header;
 
     uint8_t tcp_flags = 0;
 
@@ -51,6 +51,14 @@ struct PacketInfo {
         if (payload_len > 10) os << "...";
         os << "\n}";
         os << std::endl;
+    }
+
+    const u_char* get_packet_data() const {
+        return packet_data_copy.data();
+    }
+    
+    const pcap_pkthdr* get_packet_header() const {
+        return &packet_header;
     }
 
 private:

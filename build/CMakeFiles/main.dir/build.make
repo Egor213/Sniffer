@@ -212,10 +212,24 @@ CMakeFiles/main.dir/src/handlers/ftp_data_handler/ftp_data_handler.cpp.s: cmake_
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/main.dir/src/handlers/ftp_data_handler/ftp_data_handler.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/egor/infoTeck/src/handlers/ftp_data_handler/ftp_data_handler.cpp -o CMakeFiles/main.dir/src/handlers/ftp_data_handler/ftp_data_handler.cpp.s
 
+CMakeFiles/main.dir/src/handlers/tcp_clean_handler/tcp_clean_handler.cpp.o: CMakeFiles/main.dir/flags.make
+CMakeFiles/main.dir/src/handlers/tcp_clean_handler/tcp_clean_handler.cpp.o: /home/egor/infoTeck/src/handlers/tcp_clean_handler/tcp_clean_handler.cpp
+CMakeFiles/main.dir/src/handlers/tcp_clean_handler/tcp_clean_handler.cpp.o: CMakeFiles/main.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/egor/infoTeck/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/main.dir/src/handlers/tcp_clean_handler/tcp_clean_handler.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/src/handlers/tcp_clean_handler/tcp_clean_handler.cpp.o -MF CMakeFiles/main.dir/src/handlers/tcp_clean_handler/tcp_clean_handler.cpp.o.d -o CMakeFiles/main.dir/src/handlers/tcp_clean_handler/tcp_clean_handler.cpp.o -c /home/egor/infoTeck/src/handlers/tcp_clean_handler/tcp_clean_handler.cpp
+
+CMakeFiles/main.dir/src/handlers/tcp_clean_handler/tcp_clean_handler.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/main.dir/src/handlers/tcp_clean_handler/tcp_clean_handler.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/egor/infoTeck/src/handlers/tcp_clean_handler/tcp_clean_handler.cpp > CMakeFiles/main.dir/src/handlers/tcp_clean_handler/tcp_clean_handler.cpp.i
+
+CMakeFiles/main.dir/src/handlers/tcp_clean_handler/tcp_clean_handler.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/main.dir/src/handlers/tcp_clean_handler/tcp_clean_handler.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/egor/infoTeck/src/handlers/tcp_clean_handler/tcp_clean_handler.cpp -o CMakeFiles/main.dir/src/handlers/tcp_clean_handler/tcp_clean_handler.cpp.s
+
 CMakeFiles/main.dir/src/handlers/other_handler/other_handler.cpp.o: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/src/handlers/other_handler/other_handler.cpp.o: /home/egor/infoTeck/src/handlers/other_handler/other_handler.cpp
 CMakeFiles/main.dir/src/handlers/other_handler/other_handler.cpp.o: CMakeFiles/main.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/egor/infoTeck/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/main.dir/src/handlers/other_handler/other_handler.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/egor/infoTeck/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/main.dir/src/handlers/other_handler/other_handler.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/src/handlers/other_handler/other_handler.cpp.o -MF CMakeFiles/main.dir/src/handlers/other_handler/other_handler.cpp.o.d -o CMakeFiles/main.dir/src/handlers/other_handler/other_handler.cpp.o -c /home/egor/infoTeck/src/handlers/other_handler/other_handler.cpp
 
 CMakeFiles/main.dir/src/handlers/other_handler/other_handler.cpp.i: cmake_force
@@ -238,6 +252,7 @@ main_OBJECTS = \
 "CMakeFiles/main.dir/src/handlers/base_handler.cpp.o" \
 "CMakeFiles/main.dir/src/handlers/ftp_control_handler/ftp_control_handler.cpp.o" \
 "CMakeFiles/main.dir/src/handlers/ftp_data_handler/ftp_data_handler.cpp.o" \
+"CMakeFiles/main.dir/src/handlers/tcp_clean_handler/tcp_clean_handler.cpp.o" \
 "CMakeFiles/main.dir/src/handlers/other_handler/other_handler.cpp.o"
 
 # External object files for target main
@@ -253,12 +268,13 @@ main: CMakeFiles/main.dir/src/pcap_file/parser/parser.cpp.o
 main: CMakeFiles/main.dir/src/handlers/base_handler.cpp.o
 main: CMakeFiles/main.dir/src/handlers/ftp_control_handler/ftp_control_handler.cpp.o
 main: CMakeFiles/main.dir/src/handlers/ftp_data_handler/ftp_data_handler.cpp.o
+main: CMakeFiles/main.dir/src/handlers/tcp_clean_handler/tcp_clean_handler.cpp.o
 main: CMakeFiles/main.dir/src/handlers/other_handler/other_handler.cpp.o
 main: CMakeFiles/main.dir/build.make
 main: CMakeFiles/main.dir/compiler_depend.ts
 main: /home/egor/infoTeck/libs/libpcap/libpcap.so.1.10.5
 main: CMakeFiles/main.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/egor/infoTeck/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Linking CXX executable main"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/egor/infoTeck/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Linking CXX executable main"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/main.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

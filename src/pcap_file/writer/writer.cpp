@@ -33,7 +33,7 @@ bool PcapFileWriter::open(const std::string& file_path, int link_type, int snapl
 }
 
 
-void PcapFileWriter::write_packet(pcap_pkthdr* header, u_char* data) {
+void PcapFileWriter::write_packet(const pcap_pkthdr* header, const u_char* data) {
     pcap_dump((u_char*)this->pcap_dumper, header, data);
 }
 

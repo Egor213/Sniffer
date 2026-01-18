@@ -20,7 +20,7 @@ public:
     }
 
     bool is_empty() {
-        std::unique_lock lock(this->mutex);
+        std::lock_guard lock(this->mutex);
         return this->queue.empty();
     }
 

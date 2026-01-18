@@ -8,6 +8,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/main.dir/src/handlers/ftp_data_handler/ftp_data_handler.cpp.o.d"
   "CMakeFiles/main.dir/src/handlers/other_handler/other_handler.cpp.o"
   "CMakeFiles/main.dir/src/handlers/other_handler/other_handler.cpp.o.d"
+  "CMakeFiles/main.dir/src/handlers/tcp_clean_handler/tcp_clean_handler.cpp.o"
+  "CMakeFiles/main.dir/src/handlers/tcp_clean_handler/tcp_clean_handler.cpp.o.d"
   "CMakeFiles/main.dir/src/main.cpp.o"
   "CMakeFiles/main.dir/src/main.cpp.o.d"
   "CMakeFiles/main.dir/src/pcap_file/parser/parser.cpp.o"
