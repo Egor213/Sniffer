@@ -10,7 +10,7 @@
 
 class FtpDataHandler : public BaseHandler {
 public:
-    FtpDataHandler(const std::string& output_file, SafeQueue<PacketInfo>* queue);
+    FtpDataHandler(const std::string& output_file, SafeQueue<PacketInfo>* queue, bool txt_file = false);
     ~FtpDataHandler();
     
     void process_packet(const PacketInfo& packet) override;

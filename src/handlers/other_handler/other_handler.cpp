@@ -1,14 +1,13 @@
 #include "handlers/other_handler/other_handler.hpp"
 
 
-OtherHandler::OtherHandler(const std::string& output_file, SafeQueue<PacketInfo>* queue) 
+OtherHandler::OtherHandler(const std::string& output_file, SafeQueue<PacketInfo>* queue, bool txt_file) 
     : BaseHandler(output_file, queue), pcap_writer(std::make_unique<PcapFileWriter>()) {
-    
-        this->pcap_writer->open(output_file + ".pcap");
-        this->txt_file.open(output_file + ".txt");
-        
-        std::cout << "Обработчик 4 (OtherHandler) запустился" << std::endl;
-    }
+    this->pcap_writer->open(output_file + ".pcap");
+    if (txt_file)
+        this->txt_file.open(output_file + ".txt");    
+    std::cout << "Обработчик 4 (OtherHandler) запустился" << std::endl;
+}
 
 
 OtherHandler::~OtherHandler() {
@@ -31,7 +30,8 @@ void OtherHandler::process_packet(const PacketInfo& packet) {
                   << packet.dst_ip << ':' << packet.dst_port << " игнорируется"
                   << std::endl;
     } else {
-        packet.print(this->txt_file);
+        if (txt_file)
+            packet.print(this->txt_file);
         const pcap_pkthdr* header = packet.get_packet_header();
         const u_char* data = packet.get_packet_data();
 

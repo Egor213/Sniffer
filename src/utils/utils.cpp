@@ -35,3 +35,16 @@ std::string utils::get_current_time(){
     sstream << std::put_time(std::localtime(&now_time_t), "%H:%M:%S");
     return sstream.str();
 }
+
+ListenerMode utils::get_mode_by_str(std::string& mode) {
+    std::transform(mode.begin(), mode.end(), mode.begin(), [](unsigned char c) { return std::tolower(c); });
+    if (mode == "file_mode") {
+        return FILE_MODE;
+    } else if (mode == "directory_mode") {
+        return DIRECTORY_MODE;
+    } else if (mode == "live_mode") {
+        return LIVE_MODE;
+    } else {
+        return UNDEFINE;
+    }
+}

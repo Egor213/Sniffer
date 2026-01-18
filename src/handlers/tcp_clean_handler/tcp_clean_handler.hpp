@@ -10,7 +10,7 @@
 
 class TcpCleanHandler : public BaseHandler {
 public:
-    TcpCleanHandler(const std::string& output_file, SafeQueue<PacketInfo>* queue);
+    TcpCleanHandler(const std::string& output_file, SafeQueue<PacketInfo>* queue, bool txt_file = false);
     
     ~TcpCleanHandler();
     

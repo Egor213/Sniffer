@@ -27,12 +27,6 @@ void BaseHandler::start() {
             auto packet_value = packet.value();
 
             if (packet_value.finish_packet) {
-                while (!this->queue->is_empty()) {
-                    auto next_packet = this->queue->pop();
-                    if (next_packet.has_value() && !next_packet.value().finish_packet) {
-                        this->process_packet(next_packet.value());
-                    }
-                }
                 break;
             }
 
@@ -46,12 +40,3 @@ void BaseHandler::stop() {
     this->running.store(false);
 }
 
-
-
-// ip:port SYN, SYN ACK, ACK -> FIN ACK, ACK, FIN ACK, ACK
-
-// SYN seq numb = X
-// SYN ACK seq numb = Y, ack numb = X + 1
-// ACK ack numb = Y + 1
-
-// ACK NUMBER = значение которое ожидается

@@ -9,7 +9,7 @@ public:
     PcapFileReader();
     ~PcapFileReader();
     
-    bool open(const std::string& file_path);
+    bool open(const std::string& source, bool is_live = false);
     void close();
     
     const int read_next();

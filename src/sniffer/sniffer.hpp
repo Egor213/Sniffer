@@ -51,6 +51,7 @@ private:
     std::unordered_set<TcpConnInfo, TcpConnInfoHash> ftp_connections;
 
     void read_file(const std::string& file_path);
+    void read_live_iface(const std::string& iface);
     std::vector<std::string> read_directory(const std::string& dir_path);
     void parse_ftp_response(const PacketInfo& info);
     void run();

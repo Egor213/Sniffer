@@ -22,6 +22,12 @@ void signal_handler(int signum) {
 
 
 int main(int argc, char* argv[]) {
+
+    if (argc != 3) {
+        std::cerr << "Count arg != 3" << std::endl;
+        return 1;
+    }
+
     signal(SIGINT, signal_handler);
     
     Sniffer sniffer;
@@ -58,14 +64,12 @@ int main(int argc, char* argv[]) {
     }
 
     std::cout << "Start sniffer" << std::endl;
+    auto str_mode = std::string(argv[1]);
+    ListenerMode mode = utils::get_mode_by_str(str_mode);
+    std::string source = argv[2];
 
-    // std::string file = "out.pcap";
-    // std::string file = "big_ftp.pcap";
-    // std::string file = "tcp_big_data.pcap";
-    // std::string file = "test.pcap";
-    std::string file = "tcp_mixed_sessions.pcap";
-    std::thread sniffer_thread([&sniffer, &file]() {
-        sniffer.start(DIRECTORY_MODE, "test");
+    std::thread sniffer_thread([&sniffer, &mode, &source]() {
+        sniffer.start(mode, source);
         running = false;
     });
 

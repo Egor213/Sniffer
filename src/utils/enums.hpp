@@ -11,7 +11,8 @@ enum EventType {
 enum ListenerMode {
     FILE_MODE = 1,
     DIRECTORY_MODE = 2,
-    LIVE_MODE = 3
+    LIVE_MODE = 3,
+    UNDEFINE = 4
 };
 
 enum FtpConnType {

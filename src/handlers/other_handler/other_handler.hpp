@@ -10,7 +10,7 @@
 
 class OtherHandler : public BaseHandler {
 public:
-    OtherHandler(const std::string& output_file, SafeQueue<PacketInfo>* queue);
+    OtherHandler(const std::string& output_file, SafeQueue<PacketInfo>* queue, bool txt_file = false);
     ~OtherHandler();
     
     void process_packet(const PacketInfo& packet) override;

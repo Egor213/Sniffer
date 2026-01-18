@@ -24,7 +24,7 @@ void PcapFileReader::close() {
     this->error.clear();
 }
 
-bool PcapFileReader::open(const std::string& file_path) {
+bool PcapFileReader::open(const std::string& source, bool is_live) {
 
     std::lock_guard<std::recursive_mutex> lock(this->mutex);
 
@@ -32,7 +32,11 @@ bool PcapFileReader::open(const std::string& file_path) {
 
     char errbuf[PCAP_ERRBUF_SIZE];
     
-    this->handle = pcap_open_offline(file_path.c_str(), errbuf);
+    if (is_live) {
+        this->handle = pcap_open_live(source.c_str(), BUFSIZ, 1, 1000, errbuf);
+    } else {
+        this->handle = pcap_open_offline(source.c_str(), errbuf);
+    }
 
     if (this->handle == nullptr) {
         this->error = errbuf;

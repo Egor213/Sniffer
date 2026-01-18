@@ -26,11 +26,11 @@ void Sniffer::stop() {
     this->running = false;
     PacketInfo finish_packet;
     finish_packet.finish_packet = true;
-
+    
     for (auto& [type, queue] : this->queues) {
         queue->push(finish_packet);
     }
-
+    
     this->ftp_cv.notify_all();
     if (this->ftp_conn_cleaner_thread.joinable()) {
         this->ftp_conn_cleaner_thread.join();
@@ -51,7 +51,6 @@ std::optional<PacketInfo> Sniffer::process_packet(const u_char* packet_data, con
 
     PacketInfo info = info_opt.value();
     if (info.protocol == IPPROTO_TCP) {
-        this->tcp_tracker->send_packet(info);
         if (info.dst_port == std::to_string(FTP_PORT) || info.src_port == std::to_string(FTP_PORT)) {
             info.type_packet = FTP_CONTROL;
             this->parse_ftp_response(info);
@@ -76,6 +75,9 @@ std::optional<PacketInfo> Sniffer::process_packet(const u_char* packet_data, con
                 info.type_packet = FTP_DATA;
                 dst_it->update_last_use();
             }
+        }
+        if (info.type_packet == OTHER) {
+            this->tcp_tracker->send_packet(info);
         }
     }
     return info;
@@ -143,13 +145,22 @@ void Sniffer::ftp_connections_cleaner() {
 } 
 
 void Sniffer::read_file(const std::string& file_path) {
-    if (!std::filesystem::exists(file_path)) {
+    namespace fs = std::filesystem;
+
+    if (!fs::exists(file_path)) {
         throw std::runtime_error("File not found");
     }
 
     bool is_open = this->pcap_reader->open(file_path);
     if (!is_open) {
         throw std::runtime_error("Path is not a directory or does not exist: " +  this->pcap_reader->get_error());
+    }
+}
+
+void Sniffer::read_live_iface(const std::string& iface) {
+    bool is_open = this->pcap_reader->open(iface, true);
+    if (!is_open) {
+        throw std::runtime_error("Interface does not exist: " +  this->pcap_reader->get_error());
     }
 }
 
@@ -200,6 +211,9 @@ void Sniffer::start(ListenerMode mode, const std::string& source, const std::str
             break;
         }
         case LIVE_MODE: {
+            this->read_live_iface(source);
+            this->pcap_reader->set_filter(filter);
+            this->run();
             break;
         }
         default:
@@ -209,7 +223,7 @@ void Sniffer::start(ListenerMode mode, const std::string& source, const std::str
 }
 #include "pcap_file/writer/writer.hpp"
 void Sniffer::run() {
-    while (true) {
+    while (this->running) {
         int res = this->pcap_reader->read_next();
 
         if (res == 1) {
