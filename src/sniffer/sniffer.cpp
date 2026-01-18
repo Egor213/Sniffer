@@ -76,7 +76,7 @@ std::optional<PacketInfo> Sniffer::process_packet(const u_char* packet_data, con
                 dst_it->update_last_use();
             }
         }
-    } 
+    }
     info.packet_data = const_cast<u_char*>(packet_data);
     info.packet_header = const_cast<pcap_pkthdr*>(packet_header);
     return info;
@@ -184,7 +184,7 @@ void Sniffer::run() {
             if (packet_data && packet_header) {
                 auto packet = process_packet(packet_data, packet_header);
                 this->dump_completed_sessions();
-                if (packet.has_value()) {
+                if (packet.has_value() && packet.value().type_packet != OTHER) {
                     this->dispatch_packet(packet.value());
                 }
             }
@@ -197,6 +197,10 @@ void Sniffer::run() {
             std::cout << "End of file" << std::endl;
             break;
         }
+    }
+    this->tcp_tracker->dump_all_packets();
+    for (auto& packet : this->tcp_tracker->get_failed_packets()) {
+        this->dispatch_packet(packet);
     }
 }
 

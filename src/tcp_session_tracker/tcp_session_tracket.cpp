@@ -1,13 +1,5 @@
 #include "tcp_session_tracker/tcp_session_tracket.hpp"
 
-TcpSessionTracker::~TcpSessionTracker() {
-    for (auto [per, con] : this->session_packets) {
-        std::cout << per.src_ip << ':' << per.src_port << "->" << per.dst_ip << ':' << per.dst_port << std::endl;
-        for (auto a : con) {
-            a.print();
-        }
-    }
-}
 
 void TcpSessionTracker::send_packet(PacketInfo packet) {
     if (packet.protocol != IPPROTO_TCP) {
@@ -26,51 +18,6 @@ void TcpSessionTracker::send_packet(PacketInfo packet) {
     }
     this->session_packets[conn].push_back(packet);
     auto& state = this->state_map[conn];
-    
-
-    // if (packet.tcp_flags & TH_SYN && !(packet.tcp_flags & TH_ACK)) {
-    //     this->state_map[conn] = SYN_SENT_1;
-
-    // } else if (
-    //     packet.tcp_flags & TH_SYN && 
-    //     packet.tcp_flags & TH_ACK && 
-    //     state == SYN_SENT_1
-    // ) {
-    //     state = SYN_SENT_2;
-        
-    // } else if (
-    //     packet.tcp_flags & TH_ACK && 
-    //     !(packet.tcp_flags & TH_SYN) &&
-    //     state == SYN_SENT_2
-    // ) {
-    //     state = ESTABLISHED;
-    // } else if (
-    //     packet.tcp_flags & TH_FIN &&
-    //     state == ESTABLISHED
-    // ) {
-    //     state = FIN_SENT_1;
-
-    // } else if (
-    //     packet.tcp_flags & TH_ACK &&
-    //     state == FIN_SENT_1
-    // ) {
-    //     state = FIN_ACK_1;
-        
-    // } else if (
-    //     packet.tcp_flags & TH_FIN &&
-    //     state == FIN_ACK_1
-    // ) {
-    //     state = FIN_SENT_2;
-
-    // } else if (
-    //     packet.tcp_flags & TH_ACK &&
-    //     state == FIN_SENT_2
-    // ) {
-    //     state = CLOSED;
-    //     this->dump_closed_session(conn);
-    // } else if (packet.tcp_flags & TH_RST) {
-    //     this->reset_session(conn);
-    // }
 
     // TODO: по-хорошему тут нужно использовать seq и ack number
 
@@ -120,9 +67,16 @@ void TcpSessionTracker::reset_session(TcpConnInfo& conn) {
     this->state_map.erase(conn);
 }
 
+
 const std::vector<PacketInfo>& TcpSessionTracker::get_completed_packets() const { 
     return this->completed_tcp_packets; 
 }
+
+
+const std::vector<PacketInfo>& TcpSessionTracker::get_failed_packets() const { 
+    return this->failed_tcp_packets; 
+}
+
 
 void TcpSessionTracker::clear_completed_packets() {
     this->completed_tcp_packets.clear();
@@ -139,6 +93,16 @@ void TcpSessionTracker::clear_stuck_sessions() {
     }
     
     for (auto& conn : to_remove) {
+        auto v = this->session_packets[conn];
+        this->failed_tcp_packets.insert(this->failed_tcp_packets.end(), v.begin(), v.end());
         this->reset_session(conn);
     }
+}
+
+void TcpSessionTracker::dump_all_packets() {
+    for (auto& [_, v] : this->session_packets) {
+        this->failed_tcp_packets.insert(this->failed_tcp_packets.end(), v.begin(), v.end());
+    }
+    this->state_map.clear();
+    this->session_packets.clear();
 }
