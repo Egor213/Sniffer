@@ -15,6 +15,7 @@ std::optional<PacketInfo> PcapFileParser::parse_file(u_char* packet_data_t, pcap
     size_t ethernet_len = sizeof(struct ether_header);
 
     if (ntohs(ether_header->ether_type) != ETHERTYPE_IP) {
+        std::cerr << "Packet is not ETHERTYPE_IP" << std::endl;
         return std::nullopt;
     }
 

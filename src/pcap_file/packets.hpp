@@ -98,27 +98,24 @@ struct TcpConnInfo {
     }
 
     bool operator==(const TcpConnInfo& other) const {
-        if (dst_ip == "-1" && dst_port == "-1") {
-            return src_ip == other.src_ip && src_port == other.src_port;
-        } else if (src_ip == "-1" && src_port == "-1") {
-            return dst_ip == other.dst_ip && dst_port == other.dst_port;
-        } else {
-            return (src_ip == other.src_ip && src_port == other.src_port &&
+        return (src_ip == other.src_ip && src_port == other.src_port &&
                 dst_ip == other.dst_ip && dst_port == other.dst_port) ||
-               (src_ip == other.dst_ip && src_port == other.dst_port &&
+            (src_ip == other.dst_ip && src_port == other.dst_port &&
                 dst_ip == other.src_ip && dst_port == other.src_port);
         }
-    }
 
 };
 
 struct TcpConnInfoHash {
     std::size_t operator()(const TcpConnInfo& info) const {
-        auto h1 = std::hash<std::string>()(info.src_ip);
-        auto h2 = std::hash<std::string>()(info.src_port);
-        auto h3 = std::hash<std::string>()(info.dst_ip);
-        auto h4 = std::hash<std::string>()(info.dst_port);
+        std::string key1 = info.src_ip + ":" + info.src_port;
+        std::string key2 = info.dst_ip + ":" + info.dst_port;
 
-        return h1 ^ h2 ^ h3 ^ h4;
+
+        if (key1 <= key2) {
+            return std::hash<std::string>()(key1 + "<->" + key2);
+        } else {
+            return std::hash<std::string>()(key2 + "<->" + key1);
+        }
     }
 };

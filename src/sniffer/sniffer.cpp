@@ -6,7 +6,6 @@
 #include "sniffer/sniffer.hpp"
 
 
-
 Sniffer::Sniffer() {
     this->pcap_reader = std::make_unique<PcapFileReader>();
 
@@ -18,9 +17,11 @@ Sniffer::Sniffer() {
     this->queues[OTHER] = std::make_shared<SafeQueue<PacketInfo>>();
 }
 
+
 Sniffer::~Sniffer() {
     this->stop();
 }
+
 
 void Sniffer::stop() {
     this->running = false;
@@ -29,11 +30,6 @@ void Sniffer::stop() {
     
     for (auto& [type, queue] : this->queues) {
         queue->push(finish_packet);
-    }
-    
-    this->ftp_cv.notify_all();
-    if (this->ftp_conn_cleaner_thread.joinable()) {
-        this->ftp_conn_cleaner_thread.join();
     }
 }
 
@@ -50,8 +46,9 @@ std::optional<PacketInfo> Sniffer::process_packet(const u_char* packet_data, con
     }
 
     PacketInfo info = info_opt.value();
+
     if (info.protocol == IPPROTO_TCP) {
-        if (info.dst_port == std::to_string(FTP_PORT) || info.src_port == std::to_string(FTP_PORT)) {
+        if (info.dst_port == std::to_string(FTP_PORT) || info.src_port == std::to_string(FTP_PORT)) {\
             info.type_packet = FTP_CONTROL;
             this->parse_ftp_response(info);
         } else {            
@@ -60,9 +57,8 @@ std::optional<PacketInfo> Sniffer::process_packet(const u_char* packet_data, con
             src_conn_info.src_port= info.src_port;
 
             TcpConnInfo dst_conn_info;
-            dst_conn_info.dst_ip = info.dst_ip;
-            dst_conn_info.dst_port = info.dst_port;
-
+            dst_conn_info.src_ip = info.dst_ip;
+            dst_conn_info.src_port = info.dst_port;
 
             auto src_it = this->ftp_connections.find(src_conn_info);
             auto dst_it = this->ftp_connections.find(dst_conn_info);
@@ -86,8 +82,6 @@ std::optional<PacketInfo> Sniffer::process_packet(const u_char* packet_data, con
 
 void Sniffer::parse_ftp_response(const PacketInfo& info) {
     TcpConnInfo connection_info;
-    connection_info.dst_ip = info.dst_ip;
-    connection_info.dst_port = info.dst_port;
     std::string response((const char *)info.payload, info.payload_len);
     if (response.find("227 Entering Passive Mode") != std::string::npos) {
         std::size_t start = response.find('(');
@@ -96,7 +90,7 @@ void Sniffer::parse_ftp_response(const PacketInfo& info) {
             auto tokens = utils::split_string(response.substr(start + 1, end - start - 1), ',');
             int port_high = std::stoi(tokens[tokens.size() - 2]);
             int port_low = std::stoi(tokens[tokens.size() - 1]);
-            connection_info.src_port = port_high * 256 + port_low;
+            connection_info.src_port = std::to_string(port_high * 256 + port_low);
             connection_info.src_ip = info.src_ip;
             this->ftp_connections.insert(connection_info);
         }
@@ -105,7 +99,7 @@ void Sniffer::parse_ftp_response(const PacketInfo& info) {
         std::size_t end = response.find(')');
         if (start != std::string::npos && end != std::string::npos) {
             auto tokens = utils::split_string(response.substr(start + 1, end - start - 1), '|');
-            connection_info.src_port = std::stoi(tokens[tokens.size() - 1]);
+            connection_info.src_port = tokens[tokens.size() - 1];
             connection_info.src_ip = info.src_ip;
             this->ftp_connections.insert(connection_info);
         }
@@ -113,36 +107,28 @@ void Sniffer::parse_ftp_response(const PacketInfo& info) {
         auto tokens = utils::split_string(response, ',');
         int port_high = std::stoi(tokens[tokens.size() - 2]);
         int port_low = std::stoi(tokens[tokens.size() - 1]);
-        connection_info.src_port = port_high * 256 + port_low;
+        connection_info.src_port = std::to_string(port_high * 256 + port_low);
         connection_info.src_ip = info.src_ip;
         this->ftp_connections.insert(connection_info);
     }
 }
 
 
-void Sniffer::ftp_connections_cleaner() {
+void Sniffer::  ftp_connections_clear() {
     std::vector<TcpConnInfo> to_remove;
-    while (this->running) {
-        std::unique_lock<std::mutex> lock(this->ftp_mutex);
-        
-        this->ftp_cv.wait_for(lock, std::chrono::seconds(FTP_CLEANER_SLEEP), [this] { 
-            return !this->running; 
-        });
-    
-        lock.unlock();
-    
-        for (const auto& it : this->ftp_connections) {
-            if (!it.is_active()) {
-                to_remove.push_back(it);
-            }
-        }
 
-        for (const auto& el : to_remove) {
-            this->ftp_connections.erase(el);
+    for (const auto& it : this->ftp_connections) {
+        if (!it.is_active()) {
+            to_remove.push_back(it);
         }
-        to_remove.clear();
     }
+
+    for (const auto& el : to_remove) {
+        this->ftp_connections.erase(el);
+    }
+    to_remove.clear();
 } 
+
 
 void Sniffer::read_file(const std::string& file_path) {
     namespace fs = std::filesystem;
@@ -157,12 +143,14 @@ void Sniffer::read_file(const std::string& file_path) {
     }
 }
 
+
 void Sniffer::read_live_iface(const std::string& iface) {
     bool is_open = this->pcap_reader->open(iface, true);
     if (!is_open) {
         throw std::runtime_error("Interface does not exist: " +  this->pcap_reader->get_error());
     }
 }
+
 
 std::vector<std::string> Sniffer::read_directory(const std::string& dir_path) {
     namespace fs = std::filesystem;
@@ -190,9 +178,9 @@ std::vector<std::string> Sniffer::read_directory(const std::string& dir_path) {
     return std::vector<std::string>{};
 }
 
+
 void Sniffer::start(ListenerMode mode, const std::string& source, const std::string& filter) {
     this->running = true;
-    this->ftp_conn_cleaner_thread = std::thread(&Sniffer::ftp_connections_cleaner, this);
 
     switch (mode) {
         case FILE_MODE: {
@@ -221,8 +209,10 @@ void Sniffer::start(ListenerMode mode, const std::string& source, const std::str
             return;
     }
 }
-#include "pcap_file/writer/writer.hpp"
+
+
 void Sniffer::run() {
+    int cnt = 0;
     while (this->running) {
         int res = this->pcap_reader->read_next();
 
@@ -245,6 +235,10 @@ void Sniffer::run() {
             std::cout << "End of file" << std::endl;
             break;
         }
+        if (++cnt % 100 == 0) {
+            this->ftp_connections_clear();
+            cnt = 0;
+        }
     }
     this->tcp_tracker->dump_all_packets();
     for (auto& packet : this->tcp_tracker->get_failed_packets()) {
@@ -260,9 +254,11 @@ void Sniffer::dispatch_packet(const PacketInfo& packet) {
     }
 }
 
+
 SafeQueue<PacketInfo>* Sniffer::get_queue(EventType type) {
     return this->queues[type].get();
 }
+
 
 void Sniffer::dump_completed_sessions() {
     for (PacketInfo completed_packet : this->tcp_tracker->get_completed_packets()){

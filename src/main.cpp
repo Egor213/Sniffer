@@ -9,10 +9,10 @@
 #include "handlers/tcp_clean_handler/tcp_clean_handler.hpp"
 #include "handlers/other_handler/other_handler.hpp"
 
-#define FTP_COMMANDS_FILE "./outfiles/ftp"
-#define FTP_DATA_FILE "./outfiles/ftp_data"
-#define TCP_CLEAN_FILE "./outfiles/tcp_clean"
-#define OTHER_FILE "./outfiles/other"
+#define FTP_COMMANDS_FILE "./ftp"
+#define FTP_DATA_FILE "./ftp_data"
+#define TCP_CLEAN_FILE "./tcp_clean"
+#define OTHER_FILE "./other"
 
 std::atomic<bool> running = true;
 
@@ -22,7 +22,6 @@ void signal_handler(int signum) {
 
 
 int main(int argc, char* argv[]) {
-
     if (argc != 3) {
         std::cerr << "Count arg != 3" << std::endl;
         return 1;
@@ -66,6 +65,17 @@ int main(int argc, char* argv[]) {
     std::cout << "Start sniffer" << std::endl;
     auto str_mode = std::string(argv[1]);
     ListenerMode mode = utils::get_mode_by_str(str_mode);
+    if (mode == UNDEFINE) {
+        for (auto& thread : handler_threads) {
+            if (thread.joinable()) {
+                thread.join();
+            }
+        }
+
+        for (auto& handler : handlers) {
+            handler->stop();
+        }
+    }
     std::string source = argv[2];
 
     std::thread sniffer_thread([&sniffer, &mode, &source]() {

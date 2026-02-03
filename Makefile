@@ -7,6 +7,3 @@ clean:
 	rm -rf build
 
 rebuild: clean all
-
-run: all
-	./build/main

@@ -28,5 +28,6 @@ enum SessionState {
     FIN_SENT_1,
     FIN_ACK_1,
     FIN_SENT_2,
+    TWO_FIN,
     CLOSING,
 };

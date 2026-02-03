@@ -2,19 +2,16 @@
 
 #include <memory>
 #include <unordered_map>
+#include <unordered_set>
 #include <vector>
 #include <queue>
-#include <mutex>
 #include <iostream>
 #include <pcap.h>
-#include <unordered_set>
 #include <netinet/ether.h>
 #include <netinet/ip.h>
 #include <netinet/tcp.h>
 #include <netinet/udp.h>
 #include <chrono>
-#include <thread>
-#include <condition_variable>
 #include <filesystem>
 #include <algorithm>
 
@@ -56,10 +53,7 @@ private:
     void parse_ftp_response(const PacketInfo& info);
     void run();
 
-    void ftp_connections_cleaner();
-    std::thread ftp_conn_cleaner_thread;
-    std::condition_variable ftp_cv;
-    std::mutex ftp_mutex;
+    void ftp_connections_clear();
     bool running;
 
     std::unique_ptr<TcpSessionTracker> tcp_tracker; 

@@ -14,24 +14,22 @@ void TcpSessionTracker::send_packet(PacketInfo packet) {
     
     auto it = this->session_packets.find(conn);
     if (it != this->session_packets.end()) {
-        const_cast<TcpConnInfo&>(it->first).update_last_use();
+        it->first.update_last_use();
     }
     this->session_packets[conn].push_back(packet);
     auto& state = this->state_map[conn];
 
-    // TODO: по-хорошему тут нужно использовать seq и ack number
 
-    if (packet.tcp_flags & TH_SYN && !(packet.tcp_flags & TH_ACK)) {
+    if (packet.tcp_flags == TH_SYN) {
         this->state_map[conn] = SYN_SENT_1;
-
     } else if (
-        packet.tcp_flags & TH_SYN && 
-        packet.tcp_flags & TH_ACK && 
+        packet.tcp_flags == (TH_SYN | TH_ACK) &&    
         state == SYN_SENT_1
     ) {
         state = SYN_SENT_2;
         
-    } else if (packet.tcp_flags & TH_ACK) {
+    } else if ((packet.tcp_flags & TH_ACK) &&
+        (packet.tcp_flags & ~(TH_ACK | TH_FIN)) == 0) {
 
         if (state == SYN_SENT_2) {
             state = ESTABLISHED;
@@ -50,10 +48,9 @@ void TcpSessionTracker::send_packet(PacketInfo packet) {
         this->reset_session(conn);
     }
     
-
-    // TODO: Вынести в отделный поток и запускать реже
     this->clear_stuck_sessions();
 }
+
 
 void TcpSessionTracker::dump_closed_session(TcpConnInfo& conn) {
     auto v = this->session_packets[conn];
@@ -98,6 +95,7 @@ void TcpSessionTracker::clear_stuck_sessions() {
         this->reset_session(conn);
     }
 }
+
 
 void TcpSessionTracker::dump_all_packets() {
     for (auto& [_, v] : this->session_packets) {
