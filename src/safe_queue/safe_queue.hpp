@@ -44,6 +44,11 @@ public:
         return this->queue.size();
     }
 
+    void close_queue() {
+        this->closed = true;
+        this->cv.notify_all();
+    }
+
 private:
     std::queue<T> queue;
     std::mutex mutex;
