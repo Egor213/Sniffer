@@ -27,6 +27,7 @@ void BaseHandler::start() {
             auto packet_value = packet.value();
 
             if (packet_value.finish_packet) {
+                this->queue->close_queue();
                 break;
             }
 
